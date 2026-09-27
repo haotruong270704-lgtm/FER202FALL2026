@@ -1,0 +1,38 @@
+export const pizzas = [
+  {
+    id: 1,
+    title: 'Margherita Pizza',
+    price: '$24.00',
+    oldPrice: '$40.00',
+    badge: 'SALE',
+    badgeBg: 'bg-warning text-dark',
+    image: '/images/menu1.jpg',
+  },
+  {
+    id: 2,
+    title: 'Mushroom Pizza',
+    price: '$25.00',
+    oldPrice: null,
+    badge: null,
+    badgeBg: '',
+    image: '/images/menu2.jpg',
+  },
+  {
+    id: 3,
+    title: 'Hawaiian Pizza',
+    price: '$30.00',
+    oldPrice: null,
+    badge: 'NEW',
+    badgeBg: 'bg-warning text-dark',
+    image: '/images/menu3.jpg',
+  },
+  {
+    id: 4,
+    title: 'Pesto Pizza',
+    price: '$30.00',
+    oldPrice: '$50.00',
+    badge: 'SALE',
+    badgeBg: 'bg-warning text-dark',
+    image: '/images/menu4.jpg',
+  },
+];
