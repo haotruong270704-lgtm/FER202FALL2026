@@ -7,4 +7,4 @@ export { default as InputField } from './InputField';
 export { default as CartTable } from './CartTable';
 export { default as RegisterForm } from './RegisterForm';
 export { default as NavbarApp } from './NavbarApp';
-export { default as FooterApp } from './FooterApp';
+export { default as FooterApp } from './FooterApp'; 
