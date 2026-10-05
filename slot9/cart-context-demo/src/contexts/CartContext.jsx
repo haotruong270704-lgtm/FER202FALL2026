@@ -1,59 +1,36 @@
-import { createContext, useContext, useReducer, useMemo } from "react";
+import { createContext, useContext, useReducer } from "react";
 import { cartReducer, initialCartState } from "../reducers/cartReducer";
 
-const CartContext = createContext(null);
+// Tách thành 2 Context riêng biệt theo đúng hướng dẫn giáo viên
+const CartStateContext = createContext(null);
+const CartDispatchContext = createContext(null);
 
 export function CartProvider({ children }) {
   const [state, dispatch] = useReducer(cartReducer, initialCartState);
 
-  const addToCart = (product) => {
-    dispatch({ type: "ADD_TO_CART", payload: product });
-  };
-
-  const increaseQty = (id) => {
-    dispatch({ type: "INCREASE_QTY", payload: id });
-  };
-
-  const decreaseQty = (id) => {
-    dispatch({ type: "DECREASE_QTY", payload: id });
-  };
-
-  const removeFromCart = (id) => {
-    dispatch({ type: "REMOVE_FROM_CART", payload: id });
-  };
-
-  const clearCart = () => {
-    dispatch({ type: "CLEAR_CART" });
-  };
-
-  // Tính tổng số lượng & tổng tiền
-  const totalCount = state.cart.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = state.cart.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
+  return (
+    <CartStateContext.Provider value={state}>
+      <CartDispatchContext.Provider value={dispatch}>
+        {children}
+      </CartDispatchContext.Provider>
+    </CartStateContext.Provider>
   );
-
-  const value = useMemo(
-    () => ({
-      cart: state.cart,
-      addToCart,
-      increaseQty,
-      decreaseQty,
-      removeFromCart,
-      clearCart,
-      totalCount,
-      totalPrice,
-    }),
-    [state.cart, totalCount, totalPrice]
-  );
-
-  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
+// Hook đọc State (cho Badge, CartView)
 export function useCart() {
-  const context = useContext(CartContext);
+  const context = useContext(CartStateContext);
   if (!context) {
-    throw new Error("useCart phải được sử dụng trong <CartProvider>");
+    throw new Error("useCart phải được dùng trong <CartProvider>");
+  }
+  return context;
+}
+
+// Hook đọc Dispatch (cho ProductList - không bị re-render thừa)
+export function useCartDispatch() {
+  const context = useContext(CartDispatchContext);
+  if (!context) {
+    throw new Error("useCartDispatch phải được dùng trong <CartProvider>");
   }
   return context;
 }
