@@ -1,7 +1,11 @@
-import { useCart } from "../contexts/CartContext";
+import { useCart, useCartDispatch } from "../contexts/CartContext";
 
 export default function CartView() {
-  const { cart, increaseQty, decreaseQty, removeFromCart, clearCart, totalPrice, totalCount } = useCart();
+  const { cart } = useCart();
+  const dispatch = useCartDispatch();
+
+  const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   if (cart.length === 0) {
     return (
@@ -31,13 +35,13 @@ export default function CartView() {
               <td>{item.name}</td>
               <td>{item.price.toLocaleString("vi-VN")} đ</td>
               <td>
-                <button onClick={() => decreaseQty(item.id)}>-</button>
+                <button onClick={() => dispatch({ type: "DECREASE_QTY", payload: item.id })}>-</button>
                 <span style={{ margin: "0 8px" }}>{item.quantity}</span>
-                <button onClick={() => increaseQty(item.id)}>+</button>
+                <button onClick={() => dispatch({ type: "INCREASE_QTY", payload: item.id })}>+</button>
               </td>
               <td>{(item.price * item.quantity).toLocaleString("vi-VN")} đ</td>
               <td>
-                <button onClick={() => removeFromCart(item.id)}>Xóa</button>
+                <button onClick={() => dispatch({ type: "REMOVE_FROM_CART", payload: item.id })}>Xóa</button>
               </td>
             </tr>
           ))}
@@ -46,7 +50,10 @@ export default function CartView() {
 
       <div style={{ marginTop: "16px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h3>Tổng tiền: {totalPrice.toLocaleString("vi-VN")} đ</h3>
-        <button onClick={clearCart} style={{ background: "red", color: "white", padding: "8px 16px" }}>
+        <button 
+          onClick={() => dispatch({ type: "CLEAR_CART" })} 
+          style={{ background: "red", color: "white", padding: "8px 16px" }}
+        >
           Xóa toàn bộ giỏ hàng
         </button>
       </div>
