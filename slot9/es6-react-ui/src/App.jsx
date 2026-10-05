@@ -1,9 +1,9 @@
-import ProductSortList from './components/ProductSortList';
+import UserPaginationTable from './components/UserPaginationTable';
 
 const App = () => (
   <div className="container my-4">
-    <h3 className="mb-4">Bài 4: Quản lý Sản phẩm (Lọc & Sắp xếp)</h3>
-    <ProductSortList />
+    <h3 className="mb-4">Bài 5: Quản lý Bảng Người Dùng & Phân Trang</h3>
+    <UserPaginationTable />
   </div>
 );
 
