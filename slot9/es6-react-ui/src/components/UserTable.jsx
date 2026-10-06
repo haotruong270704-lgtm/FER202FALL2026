@@ -92,4 +92,4 @@ const UserTable = () => {
   );
 };
 
-export default UserTable;
+export default UserTable;npm install -g @google/gemini-cli@latest

@@ -1,66 +1,41 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
+// src/App.jsx
+import { useState } from 'react';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
 
-import MiniCart from './components/MiniCart';
-import LoginForm from './components/LoginForm';
-import RegisterForm from './components/RegisterForm';
-import TodoList from './components/TodoList';
-import TodoFilterList from './components/TodoFilterList';
-import ProductFilter from './components/ProductFilter';
-import ProductSortList from './components/ProductSortList';
-import UserTable from './components/UserTable';
-import UserPaginationTable from './components/UserPaginationTable';
+// Import lại tất cả component bài 1-5 bạn đã tạo
+import QuantityCart from './components/QuantityCart'; // Bài 1 (ví dụ tên component của bạn)
+import ProfilePreview from './components/ProfilePreview'; // Bài 2
+import ProductFilter from './components/ProductFilter'; // Bài 3
+import RegisterFormBasic from './components/RegisterFormBasic'; // Bài 4
+import RegisterFormValidation from './components/RegisterFormValidation'; // Bài 5
+import TodoList from './components/TodoList'; // Bài 6 vừa làm
 
 function App() {
+  const [activeTab, setActiveTab] = useState('bai6');
+
   return (
-    <div className="container my-4">
-      <h1 className="text-center mb-5">Lab 4: React Hooks Exercises</h1>
+    <Container className="py-4">
+      <h2 className="text-center mb-4">Tổng hợp Bài tập React Hooks</h2>
+      
+      {/* Thanh Menu chọn bài */}
+      <Nav variant="tabs" activeKey={activeTab} onSelect={(selectedKey) => setActiveTab(selectedKey)} className="mb-4">
+        <Nav.Item><Nav.Link eventKey="bai1">Bài 1</Nav.Link></Nav.Item>
+        <Nav.Item><Nav.Link eventKey="bai2">Bài 2</Nav.Link></Nav.Item>
+        <Nav.Item><Nav.Link eventKey="bai3">Bài 3</Nav.Link></Nav.Item>
+        <Nav.Item><Nav.Link eventKey="bai4">Bài 4</Nav.Link></Nav.Item>
+        <Nav.Item><Nav.Link eventKey="bai5">Bài 5</Nav.Link></Nav.Item>
+        <Nav.Item><Nav.Link eventKey="bai6">Bài 6 (Mới)</Nav.Link></Nav.Item>
+      </Nav>
 
-      {/* Bài 1: Giỏ hàng */}
-      <section className="mb-5">
-        <h2>Bài 1: Giỏ hàng (QuantityPicker & MiniCart)</h2>
-        <MiniCart />
-      </section>
-
-      <hr />
-
-      {/* Bài 2: Form */}
-      <section className="my-5">
-        <h2>Bài 2: Form Validation</h2>
-        <div className="row">
-          <div className="col-md-6 mb-3">
-            <LoginForm />
-          </div>
-          <div className="col-md-6 mb-3">
-            <RegisterForm />
-          </div>
-        </div>
-      </section>
-
-      <hr />
-
-      {/* Bài 3: Todo List */}
-      <section className="my-5">
-        <h2>Bài 3: Todo List</h2>
-        <TodoFilterList />
-      </section>
-
-      <hr />
-
-      {/* Bài 4: Sản phẩm */}
-      <section className="my-5">
-        <h2>Bài 4: Lọc & Sắp xếp Sản phẩm</h2>
-        <ProductSortList />
-      </section>
-
-      <hr />
-
-      {/* Bài 5: Người dùng */}
-      <section className="my-5">
-        <h2>Bài 5: Quản lý Người dùng</h2>
-        <UserPaginationTable />
-      </section>
-    </div>
+      {/* Hiển thị bài tập tương ứng */}
+      {activeTab === 'bai1' && <QuantityCart />}
+      {activeTab === 'bai2' && <ProfilePreview />}
+      {activeTab === 'bai3' && <ProductFilter />}
+      {activeTab === 'bai4' && <RegisterFormBasic />}
+      {activeTab === 'bai5' && <RegisterFormValidation />}
+      {activeTab === 'bai6' && <TodoList />}
+    </Container>
   );
 }
 

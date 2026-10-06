@@ -1,90 +1,105 @@
+// src/components/TodoList.jsx
 import { useState } from 'react';
+import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
-import InputGroup from 'react-bootstrap/InputGroup';
+import Badge from 'react-bootstrap/Badge';
 
 const initialTodos = [
   { id: 1, text: 'Học React Hook useState', completed: true },
-  { id: 2, text: 'Làm bài tập Slot 9', completed: false },
-  { id: 3, text: 'Commit code lên GitHub', completed: false },
+  { id: 2, text: 'Làm bài tập Todo List', completed: false },
 ];
 
 const TodoList = () => {
   const [todos, setTodos] = useState(initialTodos);
   const [text, setText] = useState('');
+  const [editingId, setEditingId] = useState(null);
+  const [editText, setEditText] = useState('');
 
-  const addTodo = (e) => {
+  const handleAddTodo = (e) => {
     e.preventDefault();
     if (!text.trim()) return;
-
-    const newTodo = {
-      id: Date.now(),
-      text: text.trim(),
-      completed: false,
-    };
-
-    setTodos((prev) => [...prev, newTodo]);
+    setTodos((prev) => [...prev, { id: Date.now(), text: text.trim(), completed: false }]);
     setText('');
   };
 
-  const toggleTodo = (id) => {
+  const handleToggle = (id) => {
     setTodos((prev) =>
-      prev.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+      prev.map((todo) => (todo.id === id ? { ...todo, completed: !todo.completed } : todo))
     );
   };
 
-  const deleteTodo = (id) => {
+  const handleDelete = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
 
+  const handleStartEdit = (todo) => {
+    setEditingId(todo.id);
+    setEditText(todo.text);
+  };
+
+  const handleSaveEdit = (id) => {
+    if (!editText.trim()) return;
+    setTodos((prev) =>
+      prev.map((todo) => (todo.id === id ? { ...todo, text: editText.trim() } : todo))
+    );
+    setEditingId(null);
+  };
+
   return (
-    <div className="card p-4 shadow-sm" style={{ maxWidth: 500 }}>
-      <h4 className="mb-3">Danh sách công việc</h4>
-      
-      <Form onSubmit={addTodo} className="mb-3">
-        <InputGroup>
+    <Card className="shadow-sm mx-auto my-4" style={{ maxWidth: '600px' }}>
+      <Card.Header as="h5" className="bg-primary text-white d-flex justify-content-between align-items-center">
+        <span>Bài 6: Todo List (Array State)</span>
+        <Badge bg="light" text="dark">
+          Chưa xong: {todos.filter((t) => !t.completed).length}
+        </Badge>
+      </Card.Header>
+      <Card.Body>
+        <Form onSubmit={handleAddTodo} className="d-flex gap-2 mb-3">
           <Form.Control
             type="text"
             placeholder="Nhập công việc mới..."
             value={text}
             onChange={(e) => setText(e.target.value)}
           />
-          <Button variant="primary" type="submit">
-            Thêm
-          </Button>
-        </InputGroup>
-      </Form>
+          <Button type="submit" variant="primary">Thêm</Button>
+        </Form>
 
-      <ListGroup variant="flush">
-        {todos.map((todo) => (
-          <ListGroup.Item
-            key={todo.id}
-            className="d-flex align-items-center justify-content-between gap-2"
-          >
-            <Form.Check
-              type="checkbox"
-              checked={todo.completed}
-              onChange={() => toggleTodo(todo.id)}
-              label={
-                <span style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>
-                  {todo.text}
-                </span>
-              }
-            />
-            <Button
-              variant="outline-danger"
-              size="sm"
-              onClick={() => deleteTodo(todo.id)}
-            >
-              Xóa
-            </Button>
-          </ListGroup.Item>
-        ))}
-      </ListGroup>
-    </div>
+        <ListGroup variant="flush">
+          {todos.map((todo) => (
+            <ListGroup.Item key={todo.id} className="d-flex justify-content-between align-items-center">
+              {editingId === todo.id ? (
+                <div className="d-flex gap-2 w-100 me-2">
+                  <Form.Control
+                    size="sm"
+                    value={editText}
+                    onChange={(e) => setEditText(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && handleSaveEdit(todo.id)}
+                  />
+                  <Button size="sm" variant="success" onClick={() => handleSaveEdit(todo.id)}>Lưu</Button>
+                  <Button size="sm" variant="secondary" onClick={() => setEditingId(null)}>Hủy</Button>
+                </div>
+              ) : (
+                <>
+                  <Form.Check
+                    type="checkbox"
+                    id={`todo-${todo.id}`}
+                    label={<span className={todo.completed ? 'text-decoration-line-through text-muted' : ''}>{todo.text}</span>}
+                    checked={todo.completed}
+                    onChange={() => handleToggle(todo.id)}
+                  />
+                  <div>
+                    <Button variant="outline-warning" size="sm" className="me-2" onClick={() => handleStartEdit(todo)}>Sửa</Button>
+                    <Button variant="outline-danger" size="sm" onClick={() => handleDelete(todo.id)}>Xóa</Button>
+                  </div>
+                </>
+              )}
+            </ListGroup.Item>
+          ))}
+        </ListGroup>
+      </Card.Body>
+    </Card>
   );
 };
 
