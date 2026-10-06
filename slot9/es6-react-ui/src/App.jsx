@@ -11,17 +11,20 @@ import RegisterFormValidation from './components/RegisterFormValidation';
 import TodoList from './components/TodoList';
 import CartReducer from './components/CartReducer';
 import LoginFormReducer from './components/LoginFormReducer';
-import ThemeAuthContext from './components/ThemeAuthContext'; // Bài 9
+import ThemeAuthContext from './components/ThemeAuthContext';
+import MiniShop from './components/MiniShop'; // Bài 10
+
 import { ThemeProvider, AuthProvider } from './context/AppContexts';
+import { CartProvider } from './context/CartContext';
 
 function AppContent() {
-  const [activeTab, setActiveTab] = useState('bai9');
+  const [activeTab, setActiveTab] = useState('bai10');
 
   return (
     <Container className="py-4">
-      <h2 className="text-center mb-4">Tổng hợp Bài tập React Hooks</h2>
+      <h2 className="text-center mb-4">Tổng hợp 10 Bài tập React Hooks</h2>
       
-      <Nav variant="tabs" activeKey={activeTab} onSelect={(selectedKey) => setActiveTab(selectedKey)} className="mb-4">
+      <Nav variant="tabs" activeKey={activeTab} onSelect={(key) => setActiveTab(key)} className="mb-4">
         <Nav.Item><Nav.Link eventKey="bai1">Bài 1</Nav.Link></Nav.Item>
         <Nav.Item><Nav.Link eventKey="bai2">Bài 2</Nav.Link></Nav.Item>
         <Nav.Item><Nav.Link eventKey="bai3">Bài 3</Nav.Link></Nav.Item>
@@ -30,7 +33,8 @@ function AppContent() {
         <Nav.Item><Nav.Link eventKey="bai6">Bài 6</Nav.Link></Nav.Item>
         <Nav.Item><Nav.Link eventKey="bai7">Bài 7</Nav.Link></Nav.Item>
         <Nav.Item><Nav.Link eventKey="bai8">Bài 8</Nav.Link></Nav.Item>
-        <Nav.Item><Nav.Link eventKey="bai9">Bài 9 (Mới)</Nav.Link></Nav.Item>
+        <Nav.Item><Nav.Link eventKey="bai9">Bài 9</Nav.Link></Nav.Item>
+        <Nav.Item><Nav.Link eventKey="bai10">Bài 10 (Mới)</Nav.Link></Nav.Item>
       </Nav>
 
       {activeTab === 'bai1' && <QuantityCart />}
@@ -42,6 +46,7 @@ function AppContent() {
       {activeTab === 'bai7' && <CartReducer />}
       {activeTab === 'bai8' && <LoginFormReducer />}
       {activeTab === 'bai9' && <ThemeAuthContext />}
+      {activeTab === 'bai10' && <MiniShop />}
     </Container>
   );
 }
@@ -50,7 +55,9 @@ function App() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <AppContent />
+        <CartProvider>
+          <AppContent />
+        </CartProvider>
       </AuthProvider>
     </ThemeProvider>
   );
