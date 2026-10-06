@@ -9,10 +9,11 @@ import ProductFilter from './components/ProductFilter';
 import RegisterFormBasic from './components/RegisterFormBasic';
 import RegisterFormValidation from './components/RegisterFormValidation';
 import TodoList from './components/TodoList';
-import CartReducer from './components/CartReducer'; // Bài 7
+import CartReducer from './components/CartReducer';
+import LoginFormReducer from './components/LoginFormReducer'; // Bài 8
 
 function App() {
-  const [activeTab, setActiveTab] = useState('bai7');
+  const [activeTab, setActiveTab] = useState('bai8');
 
   return (
     <Container className="py-4">
@@ -25,7 +26,8 @@ function App() {
         <Nav.Item><Nav.Link eventKey="bai4">Bài 4</Nav.Link></Nav.Item>
         <Nav.Item><Nav.Link eventKey="bai5">Bài 5</Nav.Link></Nav.Item>
         <Nav.Item><Nav.Link eventKey="bai6">Bài 6</Nav.Link></Nav.Item>
-        <Nav.Item><Nav.Link eventKey="bai7">Bài 7 (Mới)</Nav.Link></Nav.Item>
+        <Nav.Item><Nav.Link eventKey="bai7">Bài 7</Nav.Link></Nav.Item>
+        <Nav.Item><Nav.Link eventKey="bai8">Bài 8 (Mới)</Nav.Link></Nav.Item>
       </Nav>
 
       {activeTab === 'bai1' && <QuantityCart />}
@@ -35,6 +37,7 @@ function App() {
       {activeTab === 'bai5' && <RegisterFormValidation />}
       {activeTab === 'bai6' && <TodoList />}
       {activeTab === 'bai7' && <CartReducer />}
+      {activeTab === 'bai8' && <LoginFormReducer />}
     </Container>
   );
 }
