@@ -8,6 +8,7 @@ export default function AppNavbar() {
     { to: '/projects', label: 'Dự án' },
     { to: '/books', label: 'Thư viện' },
     { to: '/courses', label: 'Môn học' },
+    { to: '/events', label: 'Sự kiện' },
     { to: '/contact', label: 'Liên hệ' },
   ];
 

@@ -7,6 +7,7 @@ import ContactPage from './bai1/pages/ContactPage';
 import NotFoundPage from './bai1/pages/NotFoundPage';
 import Bai2 from './bai2/Bai2';
 import Bai3 from './bai3/Bai3';
+import Bai4 from './bai4/Bai4';
 
 export default function App() {
   return (
@@ -23,6 +24,9 @@ export default function App() {
 
         {/* Route Bài 3 - Môn học */}
         <Route path="/courses/*" element={<Bai3 />} />
+
+        {/* Route Bài 4 - Đăng ký sự kiện */}
+        <Route path="/events/*" element={<Bai4 />} />
 
         {/* Route 404 */}
         <Route path="*" element={<NotFoundPage />} />
