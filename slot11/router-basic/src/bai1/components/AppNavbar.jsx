@@ -6,6 +6,7 @@ export default function AppNavbar() {
     { to: '/', label: 'Trang chủ' },
     { to: '/skills', label: 'Kỹ năng' },
     { to: '/projects', label: 'Dự án' },
+    { to: '/books', label: 'Thư viện' },
     { to: '/courses', label: 'Môn học' },
     { to: '/contact', label: 'Liên hệ' },
   ];

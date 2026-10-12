@@ -5,6 +5,7 @@ import SkillsPage from './bai1/pages/SkillsPage';
 import ProjectsPage from './bai1/pages/ProjectsPage';
 import ContactPage from './bai1/pages/ContactPage';
 import NotFoundPage from './bai1/pages/NotFoundPage';
+import Bai2 from './bai2/Bai2';
 import Bai3 from './bai3/Bai3';
 
 export default function App() {
@@ -17,10 +18,13 @@ export default function App() {
         <Route path="/projects" element={<ProjectsPage />} />
         <Route path="/contact" element={<ContactPage />} />
 
-        {/* Route kết nối Bài 3 */}
+        {/* Route Bài 2 - Thư viện */}
+        <Route path="/books/*" element={<Bai2 />} />
+
+        {/* Route Bài 3 - Môn học */}
         <Route path="/courses/*" element={<Bai3 />} />
 
-        {/* Route 404 đặt ở cuối */}
+        {/* Route 404 */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </>
