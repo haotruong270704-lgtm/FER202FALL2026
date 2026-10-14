@@ -1,78 +1,83 @@
 import { Card, Badge, Button } from 'react-bootstrap';
 
 export default function MyProduct({ product }) {
-  // Nếu chưa truyền props product thì dùng dữ liệu mẫu mặc định
-  const item = product || {
-    id: 1,
-    name: 'Pizza Hải Sản Cao Cấp',
-    description: 'Pizza phủ hải sản tươi ngon cùng phô mai Mozzarella béo ngậy.',
-    price: 150000,
-    discount: 15, // Phần trăm giảm giá (15%)
-    instock: true,
-    rating: 4.8,
-    category: 'Pizza',
-  };
+  if (!product) return null;
+
+  const { name, description, price, discount, instock, rating, category, image } = product;
 
   // Tính giá sau giảm giá
-  const finalPrice = item.discount
-    ? item.price * (1 - item.discount / 100)
-    : item.price;
+  const finalPrice = discount ? price * (1 - discount / 100) : price;
+
+  // Format tiền tệ Việt Nam
+  const formatCurrency = (amount) => {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amount);
+  };
 
   return (
-    <Card className="h-100 shadow-sm border-0 position-relative">
-      {/* Hiển thị Badge giảm giá nếu có */}
-      {item.discount > 0 && (
+    <Card className="h-100 shadow-sm border-0 position-relative overflow-hidden">
+      {/* Badge giảm giá */}
+      {discount > 0 && (
         <Badge
           bg="danger"
-          className="position-absolute top-0 start-0 m-2 px-2 py-1 fs-6"
+          className="position-absolute top-0 start-0 m-2 px-2 py-1 fs-6 z-1"
         >
-          -{item.discount}%
+          -{discount}%
         </Badge>
+      )}
+
+      {/* THẺ ĐỂ HIỂN THỊ ẢNH SẢN PHẨM */}
+      {image && (
+        <Card.Img
+          variant="top"
+          src={image}
+          alt={name}
+          style={{ height: '180px', objectFit: 'cover' }}
+        />
       )}
 
       <Card.Body className="d-flex flex-column">
         {/* Category & Rating */}
         <div className="d-flex justify-content-between align-items-center mb-2">
           <Badge bg="secondary" className="text-uppercase">
-            {item.category}
+            {category}
           </Badge>
           <span className="text-warning fw-bold">
-            ★ {item.rating} / 5
+            ★ {rating} / 5
           </span>
         </div>
 
         {/* Tên sản phẩm */}
-        <Card.Title className="fs-5 fw-bold">{item.name}</Card.Title>
+        <Card.Title className="fs-6 fw-bold">{name}</Card.Title>
 
         {/* Mô tả sản phẩm */}
         <Card.Text className="text-muted small flex-grow-1">
-          {item.description}
+          {description}
         </Card.Text>
 
-        {/* Giá & Tình trạng hàng */}
-        <div className="mt-3">
+        {/* Giá & Nút bấm */}
+        <div className="mt-3 pt-2 border-top">
           <div className="d-flex align-items-baseline gap-2 mb-2">
             <span className="fs-5 fw-bold text-danger">
-              {finalPrice.toLocaleString('vi-VN')} đ
+              {formatCurrency(finalPrice)}
             </span>
-            {item.discount > 0 && (
+            {discount > 0 && (
               <span className="text-decoration-line-through text-muted small">
-                {item.price.toLocaleString('vi-VN')} đ
+                {formatCurrency(price)}
               </span>
             )}
           </div>
 
           <div className="d-flex justify-content-between align-items-center">
-            <small className={item.instock ? 'text-success fw-bold' : 'text-danger fw-bold'}>
-              {item.instock ? '● Còn hàng' : '○ Hết hàng'}
+            <small className={instock ? 'text-success fw-bold' : 'text-secondary fw-bold'}>
+              {instock ? '● Còn hàng' : '○ Hết hàng'}
             </small>
-            <Button
-              variant={item.instock ? 'primary' : 'secondary'}
-              size="sm"
-              disabled={!item.instock}
-            >
-              {item.instock ? 'Thêm vào giỏ' : 'Hết hàng'}
-            </Button>
+
+            {/* Chỉ hiển thị nút khi còn hàng */}
+            {instock && (
+              <Button variant="primary" size="sm">
+                Thêm vào giỏ
+              </Button>
+            )}
           </div>
         </div>
       </Card.Body>

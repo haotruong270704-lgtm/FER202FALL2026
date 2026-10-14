@@ -8,6 +8,7 @@ export const products = [
     instock: true,
     rating: 4.8,
     category: 'Pizza',
+    image: '/images/product-1.jpg',
   },
   {
     id: 2,
@@ -18,6 +19,7 @@ export const products = [
     instock: true,
     rating: 4.6,
     category: 'Pizza',
+    image: '/images/product-2.jpg',
   },
   {
     id: 3,
@@ -28,6 +30,7 @@ export const products = [
     instock: true,
     rating: 4.5,
     category: 'Burger',
+    image: '/images/product-3.jpg',
   },
   {
     id: 4,
@@ -38,6 +41,7 @@ export const products = [
     instock: true,
     rating: 4.7,
     category: 'Burger',
+    image: '/images/product-4.jpg',
   },
   {
     id: 5,
@@ -48,6 +52,7 @@ export const products = [
     instock: true,
     rating: 4.9,
     category: 'Chicken',
+    image: '/images/product-5.jpg',
   },
   {
     id: 6,
@@ -58,6 +63,7 @@ export const products = [
     instock: false,
     rating: 4.3,
     category: 'Chicken',
+    image: '/images/product-6.jpg',
   },
   {
     id: 7,
@@ -68,6 +74,7 @@ export const products = [
     instock: true,
     rating: 4.4,
     category: 'Pasta',
+    image: '/images/product-7.jpg',
   },
   {
     id: 8,
@@ -78,6 +85,7 @@ export const products = [
     instock: true,
     rating: 4.6,
     category: 'Pasta',
+    image: '/images/product-8.jpg',
   },
   {
     id: 9,
@@ -88,6 +96,7 @@ export const products = [
     instock: true,
     rating: 4.2,
     category: 'Dessert',
+    image: '/images/product-9.jpg',
   },
   {
     id: 10,
@@ -98,5 +107,6 @@ export const products = [
     instock: false,
     rating: 4.5,
     category: 'Salad',
+    image: '/images/product-10.jpg',
   },
 ];
