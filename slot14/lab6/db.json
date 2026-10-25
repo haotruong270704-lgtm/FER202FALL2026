@@ -1,0 +1,15 @@
+{
+  "posts": [
+    { "id": "1", "title": "Học JSON Server", "views": 100, "userId": 1, "body": "Nội dung bài viết 1" },
+    { "id": "2", "title": "Lập trình ReactJS", "views": 250, "userId": 1, "body": "Nội dung bài viết 2" }
+  ],
+  "comments": [
+    { "id": "1", "text": "Bài viết hay quá!", "postId": "1", "name": "Dev", "body": "Bài viết hay quá!" }
+  ],
+  "profile": {
+    "name": "Dev"
+  },
+  "users": [
+    { "id": 1, "name": "Leanne Graham", "email": "Sincere@april.biz" }
+  ]
+}
