@@ -1,15 +1,24 @@
-import { Container, Row, Col } from 'react-bootstrap';
-import UserList from './components/UserList';
-import UserPosts from './components/UserPosts';
+import { Container, Row, Col, Navbar } from 'react-bootstrap';
+import ProductList from './components/ProductList';
+import Cart from './components/Cart';
+import CartBadge from './components/CartBadge';
 
 export default function App() {
   return (
-    <Container className="py-4">
-      <h2 className="mb-4">👥 Users — Redux Thunk</h2>
-      <Row>
-        <Col md={4}><UserList /></Col>
-        <Col md={8}><UserPosts /></Col>
-      </Row>
-    </Container>
+    <>
+      <Navbar bg="dark" variant="dark" className="px-4 mb-4 justify-content-between">
+        <Navbar.Brand>RTK Shop</Navbar.Brand>
+        <span className="text-white"><CartBadge /></span>
+      </Navbar>
+      <Container>
+        <Row>
+          <Col lg={7}><ProductList /></Col>
+          <Col lg={5}>
+            <h4>Giỏ hàng</h4>
+            <Cart />
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }
