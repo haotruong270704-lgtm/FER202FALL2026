@@ -1,19 +1,15 @@
-import { Container, Card } from 'react-bootstrap';
-import TodoForm from './components/TodoForm';
-import FilterBar from './components/FilterBar';
-import TodoList from './components/TodoList';
+import { Container, Row, Col } from 'react-bootstrap';
+import UserList from './components/UserList';
+import UserPosts from './components/UserPosts';
 
 export default function App() {
   return (
-    <Container className="py-5" style={{ maxWidth: 600 }}>
-      <Card className="shadow">
-        <Card.Body>
-          <h3 className="mb-3">📝 Redux Todo</h3>
-          <TodoForm />
-          <FilterBar />
-          <TodoList />
-        </Card.Body>
-      </Card>
+    <Container className="py-4">
+      <h2 className="mb-4">👥 Users — Redux Thunk</h2>
+      <Row>
+        <Col md={4}><UserList /></Col>
+        <Col md={8}><UserPosts /></Col>
+      </Row>
     </Container>
   );
 }
