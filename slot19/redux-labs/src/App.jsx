@@ -1,24 +1,22 @@
-import { Container, Row, Col, Navbar } from 'react-bootstrap';
-import ProductList from './components/ProductList';
-import Cart from './components/Cart';
-import CartBadge from './components/CartBadge';
+import { useState } from 'react';
+import { Container } from 'react-bootstrap';
+import Toolbar from './components/Toolbar';
+import StudentTable from './components/StudentTable';
+import StudentFormModal from './components/StudentFormModal';
 
 export default function App() {
+  const [show, setShow] = useState(false);
+  const [editing, setEditing] = useState(null);
+
+  const openAdd = () => { setEditing(null); setShow(true); };
+  const openEdit = (student) => { setEditing(student); setShow(true); };
+
   return (
-    <>
-      <Navbar bg="dark" variant="dark" className="px-4 mb-4 justify-content-between">
-        <Navbar.Brand>RTK Shop</Navbar.Brand>
-        <span className="text-white"><CartBadge /></span>
-      </Navbar>
-      <Container>
-        <Row>
-          <Col lg={7}><ProductList /></Col>
-          <Col lg={5}>
-            <h4>Giỏ hàng</h4>
-            <Cart />
-          </Col>
-        </Row>
-      </Container>
-    </>
+    <Container className="py-4">
+      <h2 className="mb-4">🎓 Quản lý Sinh viên — Redux Toolkit</h2>
+      <Toolbar onAdd={openAdd} />
+      <StudentTable onEdit={openEdit} />
+      <StudentFormModal show={show} onHide={() => setShow(false)} editing={editing} />
+    </Container>
   );
 }
